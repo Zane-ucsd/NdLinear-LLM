@@ -2,13 +2,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStream
 import torch, threading
 
 # 加载
-model_name = "Qwen/Qwen2.5-0.5B-Instruct"
+model_name = "Qwen/Qwen3-4B"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
 # 输入
-prompt = "我操你妈！"
+prompt = "你写一个two sum的代码"
 inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
 # 流式输出
@@ -34,12 +34,30 @@ gen_kwargs = {
     "stopping_criteria": StoppingCriteriaList([StopOnDoubleNL()]),
 }
 
-# 启动生成
-thread = threading.Thread(target=model.generate, kwargs=gen_kwargs)
+import logging
+
+# 在脚本最上面配置日志
+logging.basicConfig(
+    filename="stream_llm_debug.log",
+    level=logging.DEBUG,
+    format="%(asctime)s %(levelname)s %(message)s"
+)
+
+def safe_generate(**gen_kwargs):
+    try:
+        model.generate(**gen_kwargs)
+    except Exception as e:
+        logging.exception("Error in model.generate:")
+
+# 然后把线程 target 改成 safe_generate
+thread = threading.Thread(target=safe_generate, kwargs=gen_kwargs)
 thread.start()
 
-# 打印流式输出
-for chunk in streamer:
-    print(chunk, end="", flush=True)
+try:
+    for chunk in streamer:
+        print(chunk, end="", flush=True)
+except Exception as e:
+    logging.exception("Error in streamer loop:")
+finally:
+    thread.join()
 
-thread.join()

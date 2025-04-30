@@ -25,7 +25,7 @@ import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 
-from ndlinear import NdLinear
+from  ndlinear import NdLinear
 
 
 def get_args():
