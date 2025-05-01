@@ -6,6 +6,7 @@ src/Ndcnn_img_classification.py
 src/Qwen3_4B_inference.py
 src/Standard_cnn_img_classification.py
 src/demo_pubmedqa_tiny.py
+src/eval_base_model.py
 src/finetune_pubmedqa.py
 src/path_test.py
 src/ts_forecast.py

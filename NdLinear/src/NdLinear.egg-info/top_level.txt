@@ -1,11 +1,12 @@
-$HF_HOME
 LLM
 Ndcnn_img_classification
 Qwen3_4B_inference
 Standard_cnn_img_classification
 data
 demo_pubmedqa_tiny
+eval_base_model
 finetune_pubmedqa
+out_base
 path_test
 ts_forecast
 txt_classify_bert
