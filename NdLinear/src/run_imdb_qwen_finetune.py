@@ -219,6 +219,14 @@ def main():
     eval_ds  = split["test"]                                            # 验证集（约250条）
     test_ds  = raw_dsets["test"].shuffle(seed=42).select(range(2500))                    # 最终测试集，留给最最后跑baseline
 
+        
+
+
+
+
+
+
+
     # # 1) Baseline without any fine-tuning
     # logger.info(">>> Running baseline generation on test set")
     # baseline_generation(

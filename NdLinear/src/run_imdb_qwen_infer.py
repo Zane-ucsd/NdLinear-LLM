@@ -34,7 +34,7 @@ def parse_args():
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="/root/autodl-tmp/output-of-result/qwen-imdb-finetune-mlp/checkpoint-78",
+        default="/root/autodl-tmp/output-of-result/qwen-imdb-finetune-Ndlinear-1/checkpoint-78",
         help="Where to write simple accuracy log",
     )
     parser.add_argument(
